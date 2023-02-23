@@ -32,4 +32,8 @@ export class UserController {
     }
     return response;
   }
+
+  static async findUserByID(id: string): Promise<IUser> {
+    return await UserModel.findById(id);
+  }
 }
