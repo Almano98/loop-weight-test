@@ -1,78 +1,53 @@
-import React, { useEffect, useRef, useState } from "react";
-import api from "../../api";
-import {
-  FormButton,
-  FormInput,
-  FormLabel,
-} from "../../components/common/FormElements";
-import {
-  PageContainer,
-  PageHeader,
-  PageHeaderText,
-} from "../../components/common/PageElements";
-import WeightEntry from "../../components/WeightEntry";
-import {
-  DataContainer,
-  HomeContainer,
-  HomeFormContainer,
-  LogoutButton,
-  LogoutButtonContainer,
-} from "./HomeElements";
+import React, { useEffect, useRef, useState } from 'react';
+import api from '../../api';
+import { FormButton, FormInput, FormLabel } from '../../components/common/FormElements';
+import { PageContainer, PageHeader, PageHeaderText } from '../../components/common/PageElements';
+import WeightEntry from '../../components/WeightEntry';
+import { DataContainer, HomeContainer, HomeFormContainer, LogoutButton, LogoutButtonContainer } from './HomeElements';
 
 const Home = () => {
   const [weightEntries, setWeightEntries] = useState([]);
   const [newWeight, setNewWeight] = useState(0);
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    await api
-      .saveWeight({ value: newWeight })
-      .then((response) => {
-        if (response.status === 200) {
-          setWeightEntries([response.data, ...weightEntries]);
-        } else {
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const response = await api.saveWeight({ value: newWeight });
+      setWeightEntries([response.data, ...weightEntries]);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleDelete = async (id) => {
-    await api
-      .deleteWeight(id)
-      .then((response) => {
-        if (response.status === 200) {
-          const filtered = weightEntries.filter((entry) => entry._id !== id);
-          setWeightEntries(filtered);
-        } else {
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleDelete = async id => {
+    try {
+      const response = await api.deleteWeight(id);
+      if (response.status === 200) {
+        const filtered = weightEntries.filter(entry => entry._id !== id);
+        setWeightEntries(filtered);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleUpdate = async (id, value) => {
-    await api
-      .updateWeight(id, { value })
-      .then((response) => {
-        if (response.status === 200) {
-        } else {
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const response = await api.updateWeight(id, { value });
+      if (response.status === 200) {
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const getData = async () => {
     await api
       .getWeightHistory()
-      .then((response) => {
+      .then(response => {
         const data = response.data;
         setWeightEntries(data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -98,7 +73,7 @@ const Home = () => {
               type="number"
               name="weight"
               value={newWeight}
-              onChange={(e) => {
+              onChange={e => {
                 setNewWeight(e.target.value);
               }}
             ></FormInput>
@@ -106,7 +81,7 @@ const Home = () => {
           </HomeFormContainer>
           <DataContainer>
             {weightEntries.length === 0 && <h2>There are no weight entries</h2>}
-            {weightEntries.map((entry) => (
+            {weightEntries.map(entry => (
               <WeightEntry
                 entryId={entry._id}
                 key={entry._id}
