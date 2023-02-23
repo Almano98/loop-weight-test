@@ -41,15 +41,12 @@ const Home = () => {
   };
 
   const getData = async () => {
-    await api
-      .getWeightHistory()
-      .then(response => {
-        const data = response.data;
-        setWeightEntries(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    try {
+      const response = await api.getWeightHistory();
+      setWeightEntries(response.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
