@@ -7,7 +7,7 @@ import { DataContainer, HomeContainer, HomeFormContainer, LogoutButton, LogoutBu
 
 const Home = () => {
   const [weightEntries, setWeightEntries] = useState([]);
-  const [newWeight, setNewWeight] = useState(0);
+  const [newWeight, setNewWeight] = useState('');
   const handleSubmit = async e => {
     e.preventDefault();
     try {
