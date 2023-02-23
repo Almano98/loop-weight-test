@@ -1,22 +1,21 @@
-import { Request, Response } from "express";
-import { IWeight, WeightModel } from "../models/weight-model";
+import { IWeight, WeightModel } from '../models/weight-model';
 
 export class WeightController {
   static async createWeightEntry(weight: IWeight): Promise<IWeight> {
-    console.log("WeightHandler... Save Weight Event");
+    console.log('WeightHandler... Save Weight Event');
     const weightEntry: IWeight = await WeightModel.create(weight);
     console.log(weightEntry);
     return weightEntry;
   }
 
-  static async getAllWeightEntries(): Promise<IWeight[]> {
-    console.log("WeightHandler... Get Weight History");
-    return await WeightModel.find().sort({ createdAt: "desc" });
+  static async getAllWeightEntries(userId: string): Promise<IWeight[]> {
+    console.log('WeightHandler... Get Weight History');
+    return await WeightModel.find({ user: userId }).sort({ createdAt: 'desc' });
   }
 
-  static async deleteWeightEntry(_id: string): Promise<Boolean> {
+  static async deleteWeightEntry(_id: string, userId: string): Promise<Boolean> {
     try {
-      const response = await WeightModel.findOneAndDelete({ _id });
+      const response = await WeightModel.findOneAndDelete({ _id, user: userId });
       return true;
     } catch (e) {
       // console.log(e);
@@ -24,10 +23,7 @@ export class WeightController {
     return false;
   }
 
-  static async updateWeightEntry(
-    _id: string,
-    weight: IWeight
-  ): Promise<IWeight> {
-    return await WeightModel.findOneAndUpdate({ _id }, weight, { new: true });
+  static async updateWeightEntry(_id: string, userId: string, weight: IWeight): Promise<IWeight> {
+    return await WeightModel.findOneAndUpdate({ _id, user: userId }, weight, { new: true });
   }
 }
