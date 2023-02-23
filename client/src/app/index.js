@@ -1,5 +1,19 @@
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+
 function App() {
-  return <div className="App">Weight Tracking App!</div>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/login" exact element={<Login />} />
+        <Route path="/register" exact element={<Register />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
