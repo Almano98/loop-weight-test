@@ -26,8 +26,18 @@ export class WeightHandler {
     }
   }
 
-  //TODO BONUS METHODS
-  static async UpdateWeightEntry(req: Request, res: Response) {}
+  static async updateWeightEntry(req: Request, res: Response) {
+    const _id = req.params.id;
+    try {
+      const updatedDoc: IWeight = await WeightController.updateWeightEntry(
+        _id,
+        req.body
+      );
+      res.status(200).json(updatedDoc);
+    } catch (e) {
+      return res.status(500);
+    }
+  }
 
   static async deleteWeightEntry(req: Request, res: Response) {
     console.log("WeightHandler... Save Weight Entry");

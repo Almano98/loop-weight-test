@@ -10,5 +10,9 @@ WeightRouter.delete(
   `${path}/delete_weight/:id`,
   WeightHandler.deleteWeightEntry
 );
+WeightRouter.patch(
+  `${path}/update_weight/:id`,
+  WeightHandler.updateWeightEntry
+);
 
 export default WeightRouter;

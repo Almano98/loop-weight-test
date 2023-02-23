@@ -19,8 +19,15 @@ export class WeightController {
       const response = await WeightModel.findOneAndDelete({ _id });
       return true;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
     return false;
+  }
+
+  static async updateWeightEntry(
+    _id: string,
+    weight: IWeight
+  ): Promise<IWeight> {
+    return await WeightModel.findOneAndUpdate({ _id }, weight, { new: true });
   }
 }
