@@ -31,11 +31,9 @@ export class WeightHandler {
 
   static async deleteWeightEntry(req: Request, res: Response) {
     console.log("WeightHandler... Save Weight Entry");
-
+    const _id = req.params.id;
     try {
-      const succesful: Boolean = await WeightController.deleteWeightEntry(
-        req.body
-      );
+      const succesful: Boolean = await WeightController.deleteWeightEntry(_id);
 
       return succesful
         ? res.status(200).json(req.body)
