@@ -11,6 +11,16 @@ export class WeightController {
 
   static async getAllWeightEntries(): Promise<IWeight[]> {
     console.log("WeightHandler... Get Weight History");
-    return WeightModel.find().sort({ createdAt: "desc" });
+    return await WeightModel.find().sort({ createdAt: "desc" });
+  }
+
+  static async deleteWeightEntry(_id: string): Promise<Boolean> {
+    try {
+      const response = await WeightModel.findOneAndDelete({ _id });
+      return true;
+    } catch (e) {
+      console.log(e);
+    }
+    return false;
   }
 }
