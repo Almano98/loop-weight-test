@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../api';
 import { FormButton, FormInput, FormLabel } from '../../components/common/FormElements';
 import { PageContainer, PageHeader, PageHeaderText } from '../../components/common/PageElements';
@@ -8,6 +9,8 @@ import { DataContainer, HomeContainer, HomeFormContainer, LogoutButton, LogoutBu
 const Home = () => {
   const [weightEntries, setWeightEntries] = useState([]);
   const [newWeight, setNewWeight] = useState('');
+  const navigate = useNavigate();
+
   const handleSubmit = async e => {
     e.preventDefault();
     try {
@@ -49,6 +52,10 @@ const Home = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    return navigate('/login');
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -59,7 +66,7 @@ const Home = () => {
         <PageHeader>
           <PageHeaderText>Weight tracking app</PageHeaderText>
           <LogoutButtonContainer>
-            <LogoutButton>Logout</LogoutButton>
+            <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
           </LogoutButtonContainer>
         </PageHeader>
         <HomeContainer>

@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../api';
 import { Form, FormButton, FormInput, FormLabel, FormText } from '../../components/common/FormElements';
 import { PageContainer, PageHeader, PageHeaderText } from '../../components/common/PageElements';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +18,8 @@ const Login = () => {
       const response = await api.login(data);
       if (response.status === 200) {
         console.log(response.data);
-        return navigate('/');
+        localStorage.setItem('token', response.data);
+        return location.pathname === '/' ? navigate(0) : navigate('/');
       }
     } catch (e) {
       console.log(e);
