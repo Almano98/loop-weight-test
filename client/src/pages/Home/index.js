@@ -37,6 +37,23 @@ const Home = () => {
       });
   };
 
+  const handleDelete = async (id) => {
+    await api
+      .deleteWeight(id)
+      .then((response) => {
+        if (response.status === 200) {
+          const filtered = weightEntries.filter((entry) => entry._id !== id);
+          setWeightEntries(filtered);
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleUpdate = async (id) => {};
+
   const getData = async () => {
     await api
       .getWeightHistory()
@@ -77,11 +94,15 @@ const Home = () => {
             <FormButton>Submit</FormButton>
           </HomeFormContainer>
           <DataContainer>
+            {weightEntries.length === 0 && <h2>There are no weight entries</h2>}
             {weightEntries.map((entry) => (
               <WeightEntry
+                entryId={entry._id}
                 key={entry._id}
                 value={entry.value}
                 date={entry.createdAt}
+                handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
               ></WeightEntry>
             ))}
           </DataContainer>

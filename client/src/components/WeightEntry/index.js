@@ -9,13 +9,11 @@ import { IconContext } from "react-icons/lib";
 import { MdEdit, MdDelete, MdSave } from "react-icons/md";
 import Moment from "moment";
 
-const WeightEntry = (props) => {
+const WeightEntry = ({ entryId, value, date, handleDelete, handleUpdate }) => {
   const [inputDisabled, setInputDisabled] = useState(true);
-  const [weightValue, setWeightValue] = useState(props.value);
-  const date = Moment(props.date).format("HH:mma - DD/MM/YYYY");
-  const handleDelete = () => {
-    alert("Deleting item");
-  };
+  const [weightValue, setWeightValue] = useState(value);
+  const formattedDate = Moment(date).format("HH:mma - DD/MM/YYYY");
+  console.log(value);
 
   const handleEdit = () => {
     setInputDisabled(false);
@@ -29,7 +27,7 @@ const WeightEntry = (props) => {
       <IconContext.Provider value={{ color: "black", size: "20" }}>
         <EntryContainer>
           <EntryValue
-            id={props._id}
+            id={entryId}
             type="number"
             name="weight"
             value={weightValue}
@@ -38,14 +36,14 @@ const WeightEntry = (props) => {
             }}
             disabled={inputDisabled}
           ></EntryValue>
-          <EntryDate>{date}</EntryDate>
+          <EntryDate>{formattedDate}</EntryDate>
           <EntryActions>
             {inputDisabled ? (
               <MdEdit onClick={handleEdit} />
             ) : (
               <MdSave color="green" onClick={handleSave} />
             )}
-            <MdDelete color="red" onClick={handleDelete} />
+            <MdDelete color="red" onClick={() => handleDelete(entryId)} />
           </EntryActions>
         </EntryContainer>
       </IconContext.Provider>

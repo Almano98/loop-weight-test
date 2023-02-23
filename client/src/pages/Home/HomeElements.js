@@ -14,6 +14,7 @@ export const HomeFormContainer = styled.form`
 export const DataContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
 `;
 
