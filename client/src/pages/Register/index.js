@@ -16,7 +16,7 @@ const Register = () => {
     try {
       const response = await api.signUp(data);
       if (response.status === 200) {
-        console.log(response.data);
+        localStorage.setItem('token', response.data);
         return navigate('/');
       }
     } catch (e) {
