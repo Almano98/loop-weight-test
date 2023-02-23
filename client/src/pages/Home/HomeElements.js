@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HomeContainer = styled.div`
   width: 50rem;
@@ -9,7 +9,7 @@ export const HomeFormContainer = styled.form`
   flex-direction: row;
   align-item: center;
   justify-content: center;
-  height: 5vh;
+  min-height: 5vh;
 `;
 export const DataContainer = styled.div`
   display: flex;

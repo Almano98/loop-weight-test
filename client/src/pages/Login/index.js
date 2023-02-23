@@ -1,24 +1,27 @@
-import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Form,
-  FormButton,
-  FormInput,
-  FormLabel,
-  FormText,
-} from "../../components/common/FormElements";
-import {
-  PageContainer,
-  PageHeader,
-  PageHeaderText,
-} from "../../components/common/PageElements";
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../../api';
+import { Form, FormButton, FormInput, FormLabel, FormText } from '../../components/common/FormElements';
+import { PageContainer, PageHeader, PageHeaderText } from '../../components/common/PageElements';
 
 const Login = () => {
-  const formRef = useRef();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    return navigate("/");
+
+    const data = { email, password };
+    try {
+      const response = await api.login(data);
+      if (response.status === 200) {
+        console.log(response.data);
+        return navigate('/');
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -27,11 +30,27 @@ const Login = () => {
         <PageHeader>
           <PageHeaderText>Login</PageHeaderText>
         </PageHeader>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <FormLabel htmlFor="email">Email</FormLabel>
-          <FormInput id="email" type="email" name="email"></FormInput>
+          <FormInput
+            id="email"
+            type="email"
+            name="email"
+            value={email}
+            onChange={e => {
+              setEmail(e.target.value);
+            }}
+          ></FormInput>
           <FormLabel htmlFor="password">Password</FormLabel>
-          <FormInput id="password" type="password" name="password"></FormInput>
+          <FormInput
+            id="password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={e => {
+              setPassword(e.target.value);
+            }}
+          ></FormInput>
 
           <FormButton>LOGIN</FormButton>
           <FormText>

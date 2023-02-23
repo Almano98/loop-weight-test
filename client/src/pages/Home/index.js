@@ -55,12 +55,12 @@ const Home = () => {
 
   return (
     <>
-      <LogoutButtonContainer>
-        <LogoutButton>Logout</LogoutButton>
-      </LogoutButtonContainer>
       <PageContainer>
         <PageHeader>
           <PageHeaderText>Weight tracking app</PageHeaderText>
+          <LogoutButtonContainer>
+            <LogoutButton>Logout</LogoutButton>
+          </LogoutButtonContainer>
         </PageHeader>
         <HomeContainer>
           <HomeFormContainer onSubmit={handleSubmit}>
