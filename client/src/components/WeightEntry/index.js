@@ -13,7 +13,6 @@ const WeightEntry = ({ entryId, value, date, handleDelete, handleUpdate }) => {
   const [inputDisabled, setInputDisabled] = useState(true);
   const [weightValue, setWeightValue] = useState(value);
   const formattedDate = Moment(date).format("HH:mma - DD/MM/YYYY");
-  console.log(value);
 
   const handleEdit = () => {
     setInputDisabled(false);
@@ -21,6 +20,7 @@ const WeightEntry = ({ entryId, value, date, handleDelete, handleUpdate }) => {
 
   const handleSave = () => {
     setInputDisabled(true);
+    handleUpdate(entryId, weightValue);
   };
   return (
     <>

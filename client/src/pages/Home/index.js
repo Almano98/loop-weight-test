@@ -52,7 +52,18 @@ const Home = () => {
       });
   };
 
-  const handleUpdate = async (id) => {};
+  const handleUpdate = async (id, value) => {
+    await api
+      .updateWeight(id, { value })
+      .then((response) => {
+        if (response.status === 200) {
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const getData = async () => {
     await api

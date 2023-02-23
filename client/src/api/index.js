@@ -7,11 +7,14 @@ const api = axios.create({
 export const saveWeight = (payload) => api.post(`/weight/save_weight`, payload);
 export const getWeightHistory = () => api.get(`/weight/get_weight_history`);
 export const deleteWeight = (id) => api.delete(`/weight/delete_weight/${id}`);
+export const updateWeight = (id, payload) =>
+  api.patch(`/weight/update_weight/${id}`, payload);
 
 const apis = {
   saveWeight,
   getWeightHistory,
   deleteWeight,
+  updateWeight,
 };
 
 export default apis;
