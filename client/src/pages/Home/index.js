@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import api from "../../api";
 import {
   FormButton,
@@ -21,12 +21,27 @@ import {
 
 const Home = () => {
   const [weightEntries, setWeightEntries] = useState([]);
+  const [newWeight, setNewWeight] = useState(0);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await api
+      .saveWeight({ value: newWeight })
+      .then((response) => {
+        if (response.status === 200) {
+          setWeightEntries([response.data, ...weightEntries]);
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const getData = async () => {
     await api
       .getWeightHistory()
       .then((response) => {
         const data = response.data;
-        console.log(data);
         setWeightEntries(data);
       })
       .catch((error) => {
@@ -48,9 +63,17 @@ const Home = () => {
           <PageHeaderText>Weight tracking app</PageHeaderText>
         </PageHeader>
         <HomeContainer>
-          <HomeFormContainer>
+          <HomeFormContainer onSubmit={handleSubmit}>
             <FormLabel htmlFor="weight">Weight</FormLabel>
-            <FormInput id="weight" type="number" name="weight"></FormInput>
+            <FormInput
+              id="weight"
+              type="number"
+              name="weight"
+              value={newWeight}
+              onChange={(e) => {
+                setNewWeight(e.target.value);
+              }}
+            ></FormInput>
             <FormButton>Submit</FormButton>
           </HomeFormContainer>
           <DataContainer>
