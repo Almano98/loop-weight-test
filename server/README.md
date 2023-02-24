@@ -31,3 +31,9 @@ Install dependencies
 Run
 
 > npm run dev
+
+## Docker Container
+
+To create docker container run:
+
+> docker build -t "api-server" .
