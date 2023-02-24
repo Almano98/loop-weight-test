@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 let conn;
 
+/**
+ * Helper function to check if a connection to a mongo server is already present if so return it
+ * else create a connection and return the newly form connection
+ * @returns mongodb connection
+ */
 const connect = async () => {
   if (!conn) {
     const uri = 'mongodb://mongo:27017/loop';
