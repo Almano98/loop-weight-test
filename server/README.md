@@ -20,6 +20,7 @@ Mongo service
 │   ├── types                   # Shared type defs
 │   ├── utils                   # Utility code
 ├── tsconfig.json               # Compiler options for typescript
+├── Dockerfile                  # Docker container configuration fie
 ```
 
 ## How to run
