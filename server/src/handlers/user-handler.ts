@@ -6,7 +6,6 @@ import { encodeJWT } from '../utils/jwt-utils';
 
 export class UserHandler {
   static async login(req: Request, res: Response) {
-    console.log('UserHandler... Login');
     try {
       const response: UserResponse = await UserController.login(req.body);
       if (response.error) {
@@ -17,13 +16,12 @@ export class UserHandler {
 
       return res.status(200).json(jwtToken);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return res.status(500);
     }
   }
 
   static async signUp(req: Request, res: Response) {
-    console.log('UserHandler... Sign up');
     try {
       const response: UserResponse = await UserController.signUp(req.body);
       if (response.error) {
@@ -34,6 +32,7 @@ export class UserHandler {
 
       return res.status(200).json(jwtToken);
     } catch (e) {
+      console.error(e);
       return res.status(500);
     }
   }

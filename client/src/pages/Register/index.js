@@ -30,7 +30,6 @@ const Register = () => {
           toast.error('Unexpected error, please try again');
           break;
       }
-      console.log(e);
     }
   };
 

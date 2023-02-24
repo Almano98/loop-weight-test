@@ -10,7 +10,7 @@ export class UserController {
       const newUser: IUser = await UserModel.create(user);
       response.user = newUser;
     } catch (e) {
-      console.log(e);
+      console.error(e);
       response.error = 'User already exists';
     }
     return response;
@@ -31,7 +31,7 @@ export class UserController {
         response.error = 'Passwords do not match.';
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       response.error = 'User does not exist or password incorrect.';
     }
     return response;

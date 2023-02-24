@@ -53,7 +53,7 @@ const Home = () => {
       const response = await api.getWeightHistory();
       setWeightEntries(response.data);
     } catch (e) {
-      console.log(e);
+      toast.error('Error retrieving weight entries, please try again.');
     }
   };
 
