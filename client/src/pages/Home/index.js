@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../../api';
 import { FormButton, FormInput, FormLabel } from '../../components/common/FormElements';
 import { PageContainer, PageHeader, PageHeaderText } from '../../components/common/PageElements';
@@ -15,9 +16,10 @@ const Home = () => {
     e.preventDefault();
     try {
       const response = await api.saveWeight({ value: newWeight });
+      toast.success('Succesfully added new weight entry');
       setWeightEntries([response.data, ...weightEntries]);
     } catch (e) {
-      console.log(e);
+      toast.error('Unexpected error, please try again.');
     }
   };
 
@@ -25,11 +27,13 @@ const Home = () => {
     try {
       const response = await api.deleteWeight(id);
       if (response.status === 200) {
+        toast.success('Succesfully deleted weight entry');
+
         const filtered = weightEntries.filter(entry => entry._id !== id);
         setWeightEntries(filtered);
       }
     } catch (e) {
-      console.log(e);
+      toast.error('Unexpected error, please try again.');
     }
   };
 
@@ -37,9 +41,10 @@ const Home = () => {
     try {
       const response = await api.updateWeight(id, { value });
       if (response.status === 200) {
+        toast.success('Succesfully updated weight entry');
       }
     } catch (e) {
-      console.log(e);
+      toast.error('Unexpected error, please try again.');
     }
   };
 

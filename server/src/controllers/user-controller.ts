@@ -20,6 +20,10 @@ export class UserController {
     const response: UserResponse = {};
     try {
       const userDoc: IUser = await UserModel.findOne({ email: user.email });
+      if (!userDoc) {
+        response.error = 'User does not exist';
+        return response;
+      }
       const match = await bcyrpt.compare(user.password, userDoc.password);
       if (match) {
         response.user = userDoc;

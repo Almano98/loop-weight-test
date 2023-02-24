@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../../api';
 import { Form, FormButton, FormInput, FormLabel, FormText } from '../../components/common/FormElements';
 import { PageContainer, PageHeader, PageHeaderText } from '../../components/common/PageElements';
@@ -16,10 +17,19 @@ const Register = () => {
     try {
       const response = await api.signUp(data);
       if (response.status === 200) {
+        toast.success('Registered succesfully');
         localStorage.setItem('token', response.data);
         return navigate('/');
       }
     } catch (e) {
+      switch (e.response.status) {
+        case 400:
+          toast.error('User does not exist or password incorrect');
+          break;
+        default:
+          toast.error('Unexpected error, please try again');
+          break;
+      }
       console.log(e);
     }
   };
