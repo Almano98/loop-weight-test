@@ -9,7 +9,7 @@ const stripAuthString = (authString: string) => {
 };
 export const decodeJWT = async (token: string): Promise<{ id: string; exp: number }> => {
   token = stripAuthString(token);
-  const jwtSecret: string = process.env.JWT_SECRET;
+  const jwtSecret: string = 'testString'; //TODO revert back
   return new Promise((resolve, reject) => {
     jwt.verify(token, jwtSecret, (err, decoded) => {
       if (err) {
@@ -20,7 +20,7 @@ export const decodeJWT = async (token: string): Promise<{ id: string; exp: numbe
   });
 };
 export const encodeJWT = async (id: string): Promise<string> => {
-  const jwtSecret: string = process.env.JWT_SECRET;
+  const jwtSecret: string = 'testString';
   return new Promise((resolve, reject) => {
     jwt.sign({ id }, jwtSecret, (err, encoded) => {
       if (err) {
