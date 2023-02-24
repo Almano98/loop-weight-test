@@ -4,6 +4,11 @@ import bcyrpt from 'bcrypt';
 import { UserResponse } from '../types/user-types';
 
 export class UserController {
+  /**
+   * Creates a new user document
+   * @param user user object for the new user
+   * @returns UserResponse object which includes the user doc or an error message
+   */
   static async signUp(user: IUser): Promise<UserResponse> {
     const response: UserResponse = {};
     try {
@@ -16,6 +21,11 @@ export class UserController {
     return response;
   }
 
+  /**
+   * Checks to see if the user exists and if it does, the password provided is correct
+   * @param user user object for the new user
+   * @returns UserResponse object which includes the user doc or an error message
+   */
   static async login(user: IUser): Promise<UserResponse> {
     const response: UserResponse = {};
     try {
@@ -37,6 +47,11 @@ export class UserController {
     return response;
   }
 
+  /**
+   * Retrieves user doc for the given user id
+   * @param id of the user doc
+   * @returns user object
+   */
   static async findUserByID(id: string): Promise<IUser> {
     return await UserModel.findById(id);
   }
